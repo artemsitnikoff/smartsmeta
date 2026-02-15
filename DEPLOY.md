@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Клонируем репо
-git clone git@github.com:artemsitnikoff/smartsmeta.git
+git clone https://github.com/artemsitnikoff/smartsmeta.git
 cd smartsmeta
 
 # 2. Создаём .env
