@@ -13,7 +13,7 @@ from telegram.ext import (
     filters,
 )
 
-from app.config import TELEGRAM_BOT_TOKEN, DEFAULT_RATES
+from app.config import TELEGRAM_BOT_TOKEN, DEFAULT_RATES, VERSION
 from app.gpt_client import ask_gpt
 from app.html_builder import render_estimate, render_estimate_pdf
 from app.prompt import build_system_prompt
@@ -61,7 +61,8 @@ HELP_TEXT = (
     "/new — новая смета (сброс диалога)\n"
     "/rates — текущие ставки по ролям\n"
     "/help — эта справка\n"
-    "/cancel — отменить диалог"
+    "/cancel — отменить диалог\n\n"
+    f"Версия: {VERSION}"
 )
 
 

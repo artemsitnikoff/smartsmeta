@@ -6,6 +6,8 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+VERSION = "0.2.0"
+
 GPT_MODEL = "gpt-5.2-pro"
 
 DEFAULT_RATES = {
