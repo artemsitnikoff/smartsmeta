@@ -15,7 +15,7 @@ from telegram.ext import (
 
 from app.config import TELEGRAM_BOT_TOKEN, DEFAULT_RATES
 from app.gpt_client import ask_gpt
-from app.html_builder import render_estimate
+from app.html_builder import render_estimate, render_estimate_pdf
 from app.prompt import build_system_prompt
 
 logger = logging.getLogger(__name__)
@@ -55,7 +55,7 @@ HELP_TEXT = (
     "Как пользоваться:\n"
     "1. Отправь бриф — описание проекта\n"
     "2. Ответь на уточняющие вопросы\n"
-    "3. Получи HTML-смету файлом\n"
+    "3. Получи смету (HTML + PDF)\n"
     "4. Напиши правки — получишь обновлённую смету\n\n"
     "Команды:\n"
     "/new — новая смета (сброс диалога)\n"
@@ -188,29 +188,49 @@ async def _process_gpt_response(
             "GPT→ESTIMATE | %s | project=%s variants=%d",
             tag, gpt_resp.result.project_name, len(gpt_resp.result.variants),
         )
-        await update.message.reply_text("Смета готова! Генерирую HTML...")
+        await update.message.reply_text("Смета готова! Генерирую файлы...")
 
+        html_path = pdf_path = None
         try:
             html_path = render_estimate(gpt_resp.result, rates)
         except Exception:
             logger.exception("HTML RENDER ERROR | %s", tag)
+
+        try:
+            pdf_path = render_estimate_pdf(gpt_resp.result, rates)
+        except Exception:
+            logger.exception("PDF RENDER ERROR | %s", tag)
+
+        if not html_path and not pdf_path:
             await update.message.reply_text(
-                "Ошибка при генерации HTML. Попробуйте /new."
+                "Ошибка при генерации файлов. Попробуйте /new."
             )
             return REFINE
 
+        project_name = gpt_resp.result.project_name
         try:
-            with open(html_path, "rb") as f:
-                await update.message.reply_document(
-                    document=f,
-                    filename=f"{gpt_resp.result.project_name}.html",
-                )
-            logger.info("HTML SENT | %s | file=%s", tag, gpt_resp.result.project_name)
+            if html_path:
+                with open(html_path, "rb") as f:
+                    await update.message.reply_document(
+                        document=f,
+                        filename=f"{project_name}.html",
+                    )
+            if pdf_path:
+                with open(pdf_path, "rb") as f:
+                    await update.message.reply_document(
+                        document=f,
+                        filename=f"{project_name}.pdf",
+                    )
+            logger.info("FILES SENT | %s | project=%s html=%s pdf=%s",
+                        tag, project_name, bool(html_path), bool(pdf_path))
         finally:
-            os.unlink(html_path)
+            if html_path:
+                os.unlink(html_path)
+            if pdf_path:
+                os.unlink(pdf_path)
 
         await update.message.reply_text(
-            "Готово! Откройте файл в браузере.\n\n"
+            "Готово! HTML — для просмотра в браузере, PDF — для печати.\n\n"
             "Можете написать правки — я пересгенерирую смету.\n"
             "/new — начать новую смету с чистого листа"
         )

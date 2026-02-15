@@ -113,3 +113,32 @@ def render_estimate(result: EstimateResult, rates: dict[str, int]) -> str:
     tmp.write(html)
     tmp.close()
     return tmp.name
+
+
+def render_estimate_pdf(result: EstimateResult, rates: dict[str, int]) -> str:
+    """Render estimate to a temporary PDF file. Returns the file path."""
+    from weasyprint import HTML
+
+    variants, role_summary, totals = _enrich(result, rates)
+
+    env = Environment(
+        loader=FileSystemLoader(str(_TEMPLATE_DIR)),
+        autoescape=True,
+    )
+    template = env.get_template("estimate_pdf.html")
+
+    html_str = template.render(
+        result=result,
+        variants=variants,
+        rates=rates,
+        role_summary=role_summary,
+        totals=totals,
+        date=date.today().strftime("%d.%m.%Y"),
+    )
+
+    tmp = tempfile.NamedTemporaryFile(
+        suffix=".pdf", prefix="smeta_", delete=False,
+    )
+    tmp.close()
+    HTML(string=html_str).write_pdf(tmp.name)
+    return tmp.name

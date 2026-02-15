@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ result.project_name }} — Смета</title>
+  <style>
+
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: #000;
+  font: 11pt/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20pt;
+  line-height: 1.15;
+}
+
+h2 {
+  margin: 18pt 0 6pt;
+  font-size: 14pt;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 3pt;
+}
+
+h3 {
+  margin: 10pt 0 4pt;
+  font-size: 11pt;
+}
+
+p { margin: 4pt 0; }
+
+/* Header meta */
+.meta {
+  margin-top: 8pt;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4pt 24pt;
+  font-size: 9.5pt;
+  color: #333;
+}
+
+.meta span { white-space: nowrap; }
+.meta .label { font-weight: 700; }
+
+/* Scope */
+.scope {
+  margin: 10pt 0 0;
+  font-size: 10pt;
+  color: #222;
+}
+
+/* Lists */
+ul.compact {
+  margin: 2pt 0 6pt;
+  padding-left: 16pt;
+  font-size: 9.5pt;
+  color: #222;
+}
+ul.compact li { margin: 1pt 0; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+  font-variant-numeric: tabular-nums;
+  page-break-inside: avoid;
+}
+
+th, td {
+  padding: 4pt 6pt;
+  border: 0.5pt solid #999;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.3;
+}
+
+th {
+  background: #eee;
+  font-weight: 700;
+  font-size: 8.5pt;
+}
+
+td.num, th.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+tr.total td {
+  font-weight: 800;
+  background: #f5f5f5;
+  border-top: 1.5pt solid #000;
+}
+
+/* Variant */
+.variant {
+  margin-top: 14pt;
+  page-break-inside: avoid;
+}
+
+.variant-name {
+  margin: 0 0 2pt;
+  font-size: 12pt;
+  font-weight: 800;
+}
+
+.variant-desc {
+  margin: 0 0 6pt;
+  font-size: 9.5pt;
+  color: #444;
+}
+
+.variant-total {
+  margin-top: 6pt;
+  padding: 5pt 6pt;
+  background: #f0f0f0;
+  border: 0.5pt solid #999;
+  font-weight: 800;
+  font-size: 10pt;
+  font-variant-numeric: tabular-nums;
+  page-break-inside: avoid;
+}
+
+/* Phase heading */
+.phase-name {
+  margin: 8pt 0 2pt;
+  font-size: 10pt;
+  font-weight: 700;
+}
+
+/* Divider between variants */
+.variant + .variant {
+  border-top: 1pt solid #ccc;
+  padding-top: 10pt;
+}
+
+/* Footer */
+.footer {
+  margin-top: 20pt;
+  padding-top: 6pt;
+  border-top: 0.5pt solid #999;
+  font-size: 8pt;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+
+  </style>
+</head>
+<body>
+
+<h1>{{ result.project_name }}</h1>
+
+<div class="meta">
+  {% if result.client %}<span><span class="label">Заказчик:</span> {{ result.client }}</span>{% endif %}
+  {% if result.project_type %}<span><span class="label">Тип:</span> {{ result.project_type }}</span>{% endif %}
+  <span><span class="label">Дата:</span> {{ date }}</span>
+  <span><span class="label">Итого (base):</span> {{ "{:,.0f}".format(totals.hours_base).replace(",", " ") }} ч / {{ "{:,.0f}".format(totals.cost_base).replace(",", " ") }} руб.</span>
+</div>
+
+<p class="scope">{{ result.scope_summary }}</p>
+
+{% if result.assumptions or result.risks or result.out_of_scope %}
+<h2>Обзор проекта</h2>
+
+{% if result.assumptions %}
+<h3>Допущения</h3>
+<ul class="compact">
+  {% for item in result.assumptions %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if result.risks %}
+<h3>Риски</h3>
+<ul class="compact">
+  {% for item in result.risks %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if result.out_of_scope %}
+<h3>Вне scope</h3>
+<ul class="compact">
+  {% for item in result.out_of_scope %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+
+<h2>Смета</h2>
+
+{% for variant in variants %}
+<div class="variant">
+  <div class="variant-name">{{ variant.name }}{% if variant.timeline %} ({{ variant.timeline.total_weeks_min }}&ndash;{{ variant.timeline.total_weeks_max }} нед.){% endif %}</div>
+  {% if variant.description %}
+  <div class="variant-desc">{{ variant.description }}</div>
+  {% endif %}
+
+  {% for phase in variant.phases %}
+  <div class="phase-name">{{ phase.name }}</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40%">Задача</th>
+        <th>Роль</th>
+        <th class="num">Min</th>
+        <th class="num">Base</th>
+        <th class="num">Max</th>
+        <th class="num">Ставка</th>
+        <th class="num">Стоимость</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in phase.tasks %}
+      <tr>
+        <td>{{ t.task }}</td>
+        <td>{{ t.role }}</td>
+        <td class="num">{{ t.hours_min | int }}</td>
+        <td class="num">{{ t.hours_base | int }}</td>
+        <td class="num">{{ t.hours_max | int }}</td>
+        <td class="num">{{ "{:,.0f}".format(rates.get(t.role, 0)).replace(",", " ") }}</td>
+        <td class="num">{{ "{:,.0f}".format(t.hours_base * rates.get(t.role, 0)).replace(",", " ") }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tbody>
+      <tr class="total">
+        <td colspan="2">Итого по этапу</td>
+        <td class="num">{{ phase._hours_min | int }}</td>
+        <td class="num">{{ phase._hours_base | int }}</td>
+        <td class="num">{{ phase._hours_max | int }}</td>
+        <td></td>
+        <td class="num">{{ "{:,.0f}".format(phase._cost_base).replace(",", " ") }}</td>
+      </tr>
+    </tbody>
+  </table>
+  {% endfor %}
+
+  <div class="variant-total">
+    Итого &laquo;{{ variant.name }}&raquo;: {{ variant._hours_base | int }} ч (base) &mdash; {{ "{:,.0f}".format(variant._cost_base).replace(",", " ") }} руб.
+  </div>
+</div>
+{% endfor %}
+
+<h2>Сводка по ролям</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Роль</th>
+      <th class="num">Ставка (руб/ч)</th>
+      <th class="num">Часы (base)</th>
+      <th class="num">Стоимость (base)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for role, info in role_summary.items() %}
+    <tr>
+      <td>{{ role }}</td>
+      <td class="num">{{ "{:,.0f}".format(info.rate).replace(",", " ") }}</td>
+      <td class="num">{{ "{:,.0f}".format(info.hours).replace(",", " ") }}</td>
+      <td class="num">{{ "{:,.0f}".format(info.cost).replace(",", " ") }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tbody>
+    <tr class="total">
+      <td>Итого</td>
+      <td></td>
+      <td class="num">{{ "{:,.0f}".format(totals.hours_base).replace(",", " ") }}</td>
+      <td class="num">{{ "{:,.0f}".format(totals.cost_base).replace(",", " ") }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  <span>SmartSmeta — Генерация IT-смет</span>
+  <span>{{ date }}</span>
+</div>
+
+</body>
+</html>
