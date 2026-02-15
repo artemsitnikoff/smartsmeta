@@ -29,11 +29,13 @@ h2 {
   font-size: 14pt;
   border-bottom: 1.5pt solid #000;
   padding-bottom: 3pt;
+  page-break-after: avoid;
 }
 
 h3 {
   margin: 10pt 0 4pt;
   font-size: 11pt;
+  page-break-after: avoid;
 }
 
 p { margin: 4pt 0; }
@@ -104,13 +106,13 @@ tr.total td {
 /* Variant */
 .variant {
   margin-top: 14pt;
-  page-break-inside: avoid;
 }
 
 .variant-name {
   margin: 0 0 2pt;
   font-size: 12pt;
   font-weight: 800;
+  page-break-after: avoid;
 }
 
 .variant-desc {
@@ -135,6 +137,12 @@ tr.total td {
   margin: 8pt 0 2pt;
   font-size: 10pt;
   font-weight: 700;
+  page-break-after: avoid;
+}
+
+/* Keep phase block (heading + table) together when possible */
+.phase-block {
+  page-break-inside: avoid;
 }
 
 /* Divider between variants */
@@ -210,6 +218,7 @@ tr.total td {
   {% endif %}
 
   {% for phase in variant.phases %}
+  <div class="phase-block">
   <div class="phase-name">{{ phase.name }}</div>
   <table>
     <thead>
@@ -247,6 +256,7 @@ tr.total td {
       </tr>
     </tbody>
   </table>
+  </div>
   {% endfor %}
 
   <div class="variant-total">
