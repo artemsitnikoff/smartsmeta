@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 
 
 class TaskLine(BaseModel):
@@ -25,8 +25,18 @@ class Timeline(BaseModel):
 class Variant(BaseModel):
     name: str
     description: str = ""
-    phases: list[Phase]
+    phases: list[Phase] = Field(default_factory=list)
     timeline: Timeline | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def _normalize_phases(cls, data):
+        if isinstance(data, dict) and "phases" not in data:
+            for key in ("stages", "этапы", "etapy"):
+                if key in data:
+                    data["phases"] = data.pop(key)
+                    break
+        return data
 
 
 class EstimateResult(BaseModel):
