@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Предложение о сотрудничестве — разработка территориальной схемы обращения с ТКО — Digital Clouds</title>
+  <style>
+
+:root{ --bg: #f6f7fb; --surface: #ffffff; --text: #0f172a; --muted: #475569; --muted-2: #64748b; --border: rgba(15, 23, 42, 0.10); --shadow: 0 18px 40px rgba(15, 23, 42, 0.08); --shadow-soft: 0 10px 22px rgba(15, 23, 42, 0.06); --accent: #2563eb; --accent-2: #0ea5e9; --success: #16a34a; --warning: #f59e0b; --radius: 16px; --radius-sm: 12px; --container: 1120px; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  background: radial-gradient(1200px 900px at 15% 10%, rgba(37, 99, 235, 0.10), transparent 55%),
+              radial-gradient(1000px 900px at 85% 20%, rgba(14, 165, 233, 0.10), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+a{ color: inherit; text-decoration: none; }
+a:hover{ text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+.container{
+  width: min(var(--container), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* Header */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  background: rgba(246, 247, 251, 0.75);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 0;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+}
+
+.mark{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 1), rgba(14, 165, 233, 1));
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  user-select: none;
+}
+
+.brand-name{
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.1;
+}
+.brand-sub{
+  margin-top: 2px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 520px;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.nav a{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1;
+}
+.nav a:hover{
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.16);
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* Hero */
+.hero{
+  padding: 34px 0 18px;
+}
+.hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,1));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-card::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(900px 350px at 20% 0%, rgba(37,99,235,0.14), transparent 60%),
+              radial-gradient(700px 300px at 95% 10%, rgba(14,165,233,0.12), transparent 60%);
+  pointer-events: none;
+  opacity: 0.9;
+}
+.hero-card > *{ position: relative; }
+
+h1{
+  margin: 0;
+  font-size: clamp(24px, 3.0vw, 36px);
+  line-height: 1.12;
+  letter-spacing: -0.6px;
+}
+.lead{
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 15.5px;
+  max-width: 78ch;
+}
+
+.meta-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.meta{
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+
+.meta-item{
+  grid-column: span 6;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow-soft);
+  min-height: 56px;
+}
+.meta-label{
+  color: var(--muted-2);
+  font-size: 12.5px;
+  line-height: 1.15;
+}
+.meta-value{
+  margin-top: 4px;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.placeholder{
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.05);
+  border: 1px dashed rgba(2, 6, 23, 0.20);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+/* Panels */
+.panel{
+  margin: 18px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
+}
+.panel h2{
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+.panel p{
+  margin: 10px 0 0;
+  color: var(--muted);
+  max-width: 92ch;
+}
+
+/* Summary cards */
+.cards{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.card{
+  grid-column: span 4;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 14px 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.95));
+  box-shadow: var(--shadow-soft);
+}
+.card-title{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+}
+.card-sub{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.money{
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--text);
+}
+.hours{
+  margin-top: 10px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  background: rgba(37, 99, 235, 0.08);
+  color: #1e40af;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+/* Tables */
+.table-wrap{
+  margin-top: 14px;
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: #fff;
+}
+th, td{
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+th{
+  background: rgba(2, 6, 23, 0.03);
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+td.num, th.num{
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+tr:last-child td{ border-bottom: 0; }
+.tfoot td{
+  font-weight: 900;
+  background: rgba(2, 6, 23, 0.02);
+}
+
+/* Details */
+details{
+  border-radius: 14px;
+}
+details > summary{
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+details > summary::-webkit-details-marker{ display: none; }
+
+.details{
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  background: rgba(2, 6, 23, 0.02);
+  padding: 10px;
+}
+.details > summary{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  font-weight: 800;
+  color: var(--text);
+  font-size: 13.5px;
+}
+.details > summary .right{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted-2);
+  font-weight: 700;
+  font-size: 12.5px;
+}
+.chev{
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(2,6,23,0.10);
+  background: rgba(255,255,255,0.75);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+details[open] > summary .chev{ transform: rotate(180deg); }
+
+.details-content{
+  padding: 10px 10px 6px;
+}
+
+/* Stages */
+.stages{
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.stage{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.97));
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.stage > summary{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 16px 14px;
+  background: rgba(2, 6, 23, 0.02);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.stage-title{
+  margin: 0;
+  font-weight: 900;
+  font-size: 15.5px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+.stage-desc{
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 88ch;
+}
+
+.stage-summary-right{
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  text-align: right;
+  min-width: 220px;
+}
+.stage-cost{
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.stage-hours{
+  color: var(--muted-2);
+  font-size: 12.5px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-body{
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.stage-metrics{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+}
+.metric{
+  grid-column: span 4;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,0.9);
+}
+.metric-label{
+  color: var(--muted-2);
+  font-size: 12.5px;
+  line-height: 1.2;
+}
+.metric-value{
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  color: var(--text);
+}
+.metric-value .muted{
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.story-groups{
+  display: grid;
+  gap: 10px;
+}
+.story-groups h3{
+  margin: 6px 0 0;
+  font-size: 14px;
+  letter-spacing: -0.1px;
+}
+
+.group{
+  border: 1px solid var(--border);
+  background: rgba(2,6,23,0.02);
+  padding: 10px;
+}
+.group > summary{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  font-weight: 850;
+  font-size: 13.5px;
+}
+.group > summary:hover{
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.group-meta{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted-2);
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.story-list{
+  margin: 10px 0 0;
+  padding: 0 0 0 18px;
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.story-list li{
+  margin: 7px 0;
+  break-inside: avoid;
+}
+
+.columns{
+  column-count: 2;
+  column-gap: 26px;
+}
+.story-list.columns:has(li:only-child){
+  column-count: 1;
+}
+
+.note{
+  margin-top: 10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  background: rgba(37, 99, 235, 0.06);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Footer */
+footer{
+  margin: 22px 0 26px;
+  padding: 18px 0 10px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+}
+.footer-inner{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.footer-brand{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.footer-brand .mark{
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  box-shadow: none;
+}
+.footer-title{
+  font-weight: 900;
+  color: var(--text);
+}
+.footer-meta{
+  display: grid;
+  gap: 6px;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .meta-item{ grid-column: span 12; }
+  .card{ grid-column: span 12; }
+  table{ min-width: 640px; }
+  .stage-metrics{ grid-template-columns: repeat(12, 1fr); }
+  .metric{ grid-column: span 12; }
+  .columns{ column-count: 1; }
+  .brand-sub{ max-width: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  * { scroll-behavior: auto !important; transition: none !important; }
+  details[open] .chev{ transform: none; }
+}
+
+@media print{
+  body{ background: #fff; }
+  .site-header{ position: static; background: #fff; backdrop-filter: none; }
+  .nav{ display: none; }
+  .hero-card, .panel, .stage{ box-shadow: none; }
+  .placeholder{ border-style: solid; }
+}
+  
+/* additions */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(37,99,235,.10), rgba(14,165,233,.08));
+  box-shadow: var(--shadow-soft);
+  font-weight: 650;
+}
+.btn:hover{ text-decoration: none; filter: brightness(0.98); }
+.btn.secondary{
+  background: linear-gradient(180deg, rgba(15,23,42,.04), rgba(15,23,42,.02));
+}
+.kpi{
+  display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 0;
+}
+.kpi .pill{
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255,255,255,.7);
+  font-size: 13px;
+}
+
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">DC</div>
+      <div>
+        <div class="brand-name">Digital Clouds</div>
+        <div class="brand-sub">Предложение о сотрудничестве • Территориальная схема ТКО (Постановление № 775)</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Навигация">
+      <a href="#summary">Сводка</a><a href="#plan">План</a><a href="#roles">Роли</a><a href="#experience">Опыт</a><a href="#terms">Условия</a><a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+<section class="hero">
+  <div class="hero-card">
+    <h1>Предложение о сотрудничестве: разработка территориальной схемы обращения с ТКО</h1>
+    <p class="lead">Готовим территориальную схему обращения с ТКО для субъекта РФ: <strong>текстовая часть</strong> и <strong>электронная модель в ФГИС УТКО</strong> — с нормализацией реестров, расчётами и прозрачными контрольными точками согласований.</p>
+
+    <div class="meta-grid" role="list" aria-label="Ключевая информация">
+      
+      <div class="meta-item">
+        <div class="meta-label">Документ</div>
+        <div class="meta-value"><strong>Предложение о сотрудничестве</strong><br><span class='muted'>Дата: 09.02.2026</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Для кого</div>
+        <div class="meta-value"><strong>Исполнительный орган субъекта РФ</strong><br><span class='muted'>уполномоченная организация/ГБУ</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Нормативная база</div>
+        <div class="meta-value"><strong>Постановление № 775</strong><br><span class='muted'>и требования ФГИС УТКО</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Итог проекта</div>
+        <div class="meta-value"><strong>Текстовая часть + модель ФГИС УТКО</strong><br><span class='muted'>все разделы и приложения</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Коммерческие условия</div>
+        <div class="meta-value"><strong>Без цен и сроков в документе</strong><br><span class='muted'>условия и график согласуем отдельно</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Подтверждение опыта</div>
+        <div class="meta-value"><a class='btn secondary' href='#experience'>Смотреть письма</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="summary" class="panel">
+  <h2>Что предлагаем</h2>
+  <p class="muted">
+    Разработка территориальной схемы обращения с ТКО «под ключ»: от сборки и нормализации исходных данных до готовой текстовой части и электронной модели в ФГИС УТКО.
+  </p>
+
+  <div class="kpi" aria-label="Ключевые принципы">
+    <div class="pill">Соответствие Постановлению № 775</div>
+    <div class="pill">Работа в ФГИС УТКО</div>
+    <div class="pill">Официальные подтверждения данных</div>
+    <div class="pill">Согласование с регоператором</div>
+  </div>
+
+  <div class="cards" role="list" aria-label="Состав результата">
+    
+<div class="card" role="listitem">
+  <div class="card-title">
+    <span>Текстовая часть территориальной схемы</span>
+    <span class="money">Результат</span>
+  </div>
+  <div class="card-sub">Готовим текстовую часть по структуре и уровню детализации, сопоставимому с «Терсхема Архангельск».</div>
+</div>
+
+
+<div class="card" role="listitem">
+  <div class="card-title">
+    <span>Электронная модель в ФГИС УТКО</span>
+    <span class="money">ФГИС УТКО</span>
+  </div>
+  <div class="card-sub">Заполняем все разделы в системе и прикрепляем материалы/приложения в соответствии с требованиями Постановления № 775.</div>
+</div>
+
+
+<div class="card" role="listitem">
+  <div class="card-title">
+    <span>Единые реестры и приложения</span>
+    <span class="money">Данные</span>
+  </div>
+  <div class="card-sub">Нормализуем и сводим реестры объектов, источников образования, мест накопления; готовим приложения и подтверждающие документы.</div>
+</div>
+
+
+<div class="card" role="listitem">
+  <div class="card-title">
+    <span>Прозрачные контрольные точки согласований</span>
+    <span class="money">Контроль</span>
+  </div>
+  <div class="card-sub">Фиксируем минимальный набор контрольных точек и подтверждений (официальные письма, ЭЦП, обоснования по перспективным объектам).</div>
+</div>
+
+  </div>
+</section>
+
+<section id="plan" class="panel">
+  <h2>План разработки</h2>
+  <p class="muted">
+    Ниже — сжатый, но «боевой» план работ: последовательность, зависимости и ожидаемый результат. 
+    Мы специально фиксируем контрольные точки, чтобы Заказчик мог подтверждать данные официально и без потерь времени на переделки после ЭЦП.
+  </p>
+
+  <div id="stages">
+    
+<details class="stage" id="stage-1" open>
+  <summary>
+    <div>
+      <div class="stage-title">Этап 1 — Старт: доступы и стартовые документы</div>
+      <div class="stage-desc">Открываем доступ к данным и согласуем правила обмена информацией.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Старт</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Доступы и NDA со стороны Заказчика.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Доступ к ФГИС УТКО и комплект стартовых исходных данных для начала работ.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Запрашиваем доступ в ФГИС УТКО как сотруднику РОИВ (для просмотра объектов ТКО, источников, мест накопления, сведений о регоператоре, реестра МО, схемы потоков).</li><li>Оформляем и подписываем NDA (без него доступы могут не выдать).</li><li>Организуем вход в систему через учётную запись Госуслуг.</li><li>Фиксируем состав исходных материалов и ответственных со стороны Заказчика и регионального оператора.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="stage" id="stage-2" open>
+  <summary>
+    <div>
+      <div class="stage-title">Этап 2 — Реестр объектов ТКО: действующие и перспективные</div>
+      <div class="stage-desc">Формируем базовый блок, без которого нельзя корректно посчитать логистику и потоки.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Ключевой блок</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Данные от Заказчика и подтверждения по перспективным объектам.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Финальные реестры объектов ТКО (включая перспективные с обоснованием стоимости), готовые для включения в модель и расчёты потоков.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Собираем данные по объектам (полигоны/обработчики/утилизаторы) и сведения об остаточной вместимости полигонов (через запрос в Росприроднадзор со стороны Заказчика).</li><li>Сводим данные, выявляем несоответствия, формируем вопросы и добиваемся финального решения по данным от Заказчика.</li><li>После финализации — организуем подтверждение официальным письмом и передаём данные в расчётную группу для логистики/потоков.</li><li>При рисках участия отдельных объектов в потоках — прорабатываем альтернативный вариант схемы потоков.</li><li>По перспективным объектам: собираем стоимость и обоснования (концессии/сметы/КП), прикладываем подтверждения капитальных вложений в проект ФГИС УТКО.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="stage" id="stage-3">
+  <summary>
+    <div>
+      <div class="stage-title">Этап 3 — Источники образования ТКО и расчёт массы</div>
+      <div class="stage-desc">Собираем и нормализуем данные, рассчитываем массу и прогноз.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Ключевой блок</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Нормативы и фактические данные от Заказчика/регоператора.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Подтверждённая масса образования ТКО и методика расчёта + прогноз, переданные в расчёт логистики/потоков.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Получаем реестр источников (из ФГИС УТКО при наличии доступа и/или от Заказчика и регионального оператора).</li><li>Очищаем данные: убираем дубли по адресам, агрегируем по категориям потребителей и муниципальным образованиям (автоматизация скриптами).</li><li>Запрашиваем утверждённые нормативы и считаем массу образования ТКО за год (источники × нормативы) с учётом градаций по численности населения.</li><li>Для согласования финальной массы — запрашиваем фактические массы за последние 3 года и готовим сравнительную таблицу (2‑ТП, «Электронный бюджет», отчёт регионального оператора).</li><li>Совместно с Заказчиком фиксируем методику: фактическая масса или расчётная по нормативам — для расчёта потоков.</li><li>Строим прогноз массы на 10 лет вперёд по прогнозу численности населения (индексы год‑к‑году).</li><li>Проводим сверку реестров (данные ФГИС УТКО vs данные регоператора), исправляем ошибки и подтверждаем итог официальным письмом.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="stage" id="stage-4">
+  <summary>
+    <div>
+      <div class="stage-title">Этап 4 — Места накопления ТКО: контейнерные площадки и контейнеры</div>
+      <div class="stage-desc">Нормализуем реестр и рассчитываем потребность по каждому МО.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Реестры и расчёты</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Реестр мест накопления и параметры контейнеров/вывоза.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Нормализованный реестр мест накопления + расчёт потребности в инфраструктуре накопления по МО.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Выгружаем реестр мест накопления из ФГИС УТКО (или запрашиваем у Заказчика) и сверяем с данными регионального оператора.</li><li>Формируем список типовых ошибок (например, отсутствует тип контейнера) и передаём на дозапрос данных.</li><li>После нормализации — рассчитываем потребность в новых площадках/контейнерах: сопоставляем массу образования по МО с объёмом возможного накопления.</li><li>Объём накопления считаем как: (количество контейнеров × объём контейнера × частота вывоза), учитываем сезонность.</li><li>Готовим обоснованный расчёт потребности по каждому муниципальному образованию.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="stage" id="stage-5">
+  <summary>
+    <div>
+      <div class="stage-title">Этап 5 — Логистика и схема потоков ТКО</div>
+      <div class="stage-desc">Расчётная группа считает потоки, а мы обеспечиваем корректную интеграцию в терсхему и приложения.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Логистика</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Результаты расчёта логистики от партнёра + согласование регоператора.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Схема потоков ТКО, корректно оформленная по требованиям и согласованная ключевыми участниками.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Передаём подтверждённые реестры объектов и массу образования ТКО в расчётную группу.</li><li>Получаем результаты расчёта логистики/схемы потоков и вставляем их в разделы и приложения территориальной схемы.</li><li>Проверяем соответствие требованиям Постановления № 775 и единицам измерения (например, «тыс. тонн» vs «тонны»).</li><li>Согласуем схему потоков с региональным оператором.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="stage" id="stage-6">
+  <summary>
+    <div>
+      <div class="stage-title">Этап 6 — Текстовая часть и электронная модель в ФГИС УТКО</div>
+      <div class="stage-desc">Финализируем текстовую часть, приложения и полностью заполняем проект в системе.</div>
+    </div>
+    <div class="stage-summary-right">
+      <div class="stage-cost"><span class="badge">Финиш</span></div>
+      <div class="stage-hours">Без сроков и цен</div>
+    </div>
+  </summary>
+
+  <div class="stage-body">
+    <div class="stage-metrics">
+      <div class="metric">
+          <div class="metric-label">Зависимости</div>
+          <div class="metric-value">Подписание/загрузка материалов с ЭЦП со стороны Заказчика.</div>
+        </div>
+      <div class="metric">
+          <div class="metric-label">Результат</div>
+          <div class="metric-value"><span class="muted">Готовая территориальная схема: текстовая часть + электронная модель в ФГИС УТКО, подготовленная к публикации/подписанию.</span></div>
+        </div>
+      <div class="metric">
+        <div class="metric-label">Что делаем</div>
+        <div class="metric-value">
+          <ul class="story-list"><li>Готовим текстовую часть по структуре Постановления № 775: наполнение разделов 1–10 и комплект приложений.</li><li>Описываем методику расчёта массы, балансовые показатели, действующие/планируемые объекты, источники образования, места накопления, зоны деятельности регоператоров и состав электронной модели.</li><li>Создаём новый проект терсхемы в ФГИС УТКО, заполняем преамбулу, переносим объекты, актуализируем справочники МО/НП, прикрепляем материалы и подтверждения.</li><li>Передаём Заказчику пакет на подписание ЭЦП и публикацию (то, что требует ЭЦП, загружается/подписывается со стороны Заказчика).</li><li>Проходим контрольные точки согласований: реестры объектов и масса с методикой подтверждены официальными письмами; по перспективным объектам есть стоимость и обоснования; раздел 7 и приложения проверены на соответствие № 775.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>
+
+  </div>
+
+  <details class="details" open>
+    <summary>
+      <span>Что делаем в ФГИС УТКО (практический список)</span>
+      <span class="right"><span class="badge">5 пунктов</span><span class="chev" aria-hidden="true">▾</span></span>
+    </summary>
+    <div class="details-content">
+      <ul class="story-list"><li>Создать новый проект территориальной схемы и заполнить преамбулу (название, даты, основание — Постановление № 775 и пр.).</li><li>Через копирование перенести действующие и перспективные объекты, привязать к новому проекту; при необходимости — корректировать и публиковать.</li><li>Подготовить шаблоны по источникам и местам накопления на основании выгрузок и передать Заказчику для загрузки (для загрузки требуется ЭЦП).</li><li>Актуализировать справочник муниципальных образований и населённых пунктов.</li><li>Прикрепить к проекту материалы: текстовую часть, приложения и подтверждающие документы (например, концессии/сметы).</li></ul>
+    </div>
+  </details>
+
+  <details class="details">
+    <summary>
+      <span>Контрольные точки согласований (минимальный набор)</span>
+      <span class="right"><span class="badge">5 точек</span><span class="chev" aria-hidden="true">▾</span></span>
+    </summary>
+    <div class="details-content">
+      <ul class="story-list"><li>Финальные реестры объектов (действующие/перспективные) подтверждены Заказчиком официальным письмом.</li><li>Финальная масса образования ТКО и методика (факт/нормативы) подтверждены Заказчиком официальным письмом.</li><li>По перспективным объектам есть стоимость и обоснование (смета/концессия/КП) + сканы/подтверждения, и они прикреплены в проект.</li><li>Раздел 7 и приложения от расчётной группы проверены на соответствие Постановлению № 775 (в т.ч. единицы измерения).</li><li>Всё, что требует ЭЦП, загружено/подписано со стороны Заказчика.</li></ul>
+    </div>
+  </details>
+</section>
+
+<section id="roles" class="panel">
+  <h2>Роли и зоны ответственности</h2>
+  <p class="muted">Разделяем ответственность так, чтобы не упираться в ограничения ЭЦП и быстрее проходить согласования.</p>
+  <div class="table-wrap" aria-label="Роли и зоны ответственности">
+    <table>
+      <thead>
+        <tr><th>Участник</th><th>Ответственность</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Заказчик (уполномоченный орган/организация субъекта РФ)</strong></td><td>Оформляет доступы, подписывает NDA, подтверждает финальные данные официальным письмом, подписывает/загружает в ФГИС УТКО то, что требует ЭЦП.</td></tr><tr><td><strong>Подрядчик (Digital Clouds)</strong></td><td>Организует сбор, очистку и сведение данных; выполняет расчёты; готовит текстовую часть и комплект приложений/материалов; формирует проект в ФГИС УТКО в рамках возможного без ЭЦП.</td></tr><tr><td><strong>Региональный оператор</strong></td><td>Предоставляет реестры/отчётность (источники образования, места накопления, фактические массы и пр.), проверяет и согласовывает схему потоков (логистику).</td></tr><tr><td><strong>Расчётная группа (партнёр)</strong></td><td>Выполняет расчёт логистики/схемы потоков и передаёт данные/приложения для включения в территориальную схему.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="experience" class="panel">
+  <h2>Опыт: проект для Архангельской области</h2>
+  <p class="muted">
+    Мы уже выполняли проект по разработке территориальной схемы обращения с ТКО для Архангельской области: с подготовкой текстовой части и работой в ФГИС УТКО, включая реестры и приложения.
+    Ниже — два благодарственных письма Заказчика, подтверждающие деловую репутацию и результаты.
+  </p>
+
+  
+<div class="cards" role="list" aria-label="Благодарственные письма">
+  <div class="card" role="listitem">
+    <div class="card-title">
+      <span>Благодарственное письмо: ООО «Диджитал Клаудс»</span>
+      <span class="money">Исх. № 70</span>
+    </div>
+    <div class="card-sub">
+      ГБУ АО «Экоцентр», дата: 20.01.2026. Подтверждает качественное и своевременное исполнение обязательств по госконтракту № 0124200000625004700 от 22.09.2025 (ИКЗ: 252290109747129010100100230017490244).
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn" href="blagodarnost-70.html" target="_blank" rel="noopener">Открыть как страницу</a>
+      <a class="btn secondary" href="Исх. 70 от 20.01.2026.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+    </div>
+  </div>
+
+  <div class="card" role="listitem">
+    <div class="card-title">
+      <span>Благодарственное письмо: руководитель проекта Васькова Алина</span>
+      <span class="money">Исх. № 69</span>
+    </div>
+    <div class="card-sub">
+      ГБУ АО «Экоцентр», дата: 20.01.2026. Отмечены управленческие компетенции и качество организации работ по тому же госконтракту.
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn" href="blagodarnost-69.html" target="_blank" rel="noopener">Открыть как страницу</a>
+      <a class="btn secondary" href="Исх. 69 от 20.01.2026.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section id="terms" class="panel">
+  <h2>Организационные условия</h2>
+  <p class="muted">Чтобы проект прошёл согласование без возвратов на доработку, предлагаем опираться на следующие условия.</p>
+  <ul class="story-list">
+    <li>Заказчик обеспечивает доступ к ФГИС УТКО и подписывает NDA до начала работ.</li><li>Заказчик назначает ответственного за подтверждение финальных данных (официальные письма по реестрам объектов и массе образования ТКО).</li><li>Региональный оператор предоставляет актуальные реестры/отчётность и участвует в согласовании схемы потоков.</li><li>Все действия, требующие ЭЦП в ФГИС УТКО, выполняются со стороны Заказчика (подписание/загрузка).</li><li>По перспективным объектам Заказчик предоставляет стоимость и подтверждающие материалы (концессии/сметы/КП) для прикрепления в проект.</li><li>Коммуникация ведётся в рабочей группе (Заказчик + подрядчик + регоператор + расчётная группа), с фиксацией решений протоколом/письмом.</li>
+  </ul>
+</section>
+
+<section id="contacts" class="panel">
+  <h2>Контакты и следующий шаг</h2>
+  <p class="muted">
+    Готовы провести установочную встречу, согласовать состав исходных данных и запустить оформление доступов в ФГИС УТКО.
+    По запросу предоставим бриф на сбор данных и шаблоны реестров.
+  </p>
+  <div class="table-wrap" aria-label="Контакты">
+    <table>
+      <tbody>
+        <tr><td><strong>Исполнитель</strong></td><td>ООО «Диджитал Клаудс»</td></tr>
+        <tr><td><strong>Контактное лицо</strong></td><td>____________________________</td></tr>
+        <tr><td><strong>Телефон</strong></td><td>____________________________</td></tr>
+        <tr><td><strong>E‑mail</strong></td><td>____________________________</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <div class="brand-mini">
+        <div class="mark small" aria-hidden="true">DC</div>
+        <div>
+          <div class="brand-name">Digital Clouds</div>
+          <div class="brand-sub">Разработка территориальных схем обращения с ТКО</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-right muted">
+      © Digital Clouds. Все права защищены.
+    </div>
+  </div>
+</footer>
+</main>
+</body>
+</html>

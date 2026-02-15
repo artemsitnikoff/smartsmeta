@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ result.project_name }} — Смета — SmartSmeta</title>
+  <style>
+
+:root{ --bg: #f6f7fb; --surface: #ffffff; --text: #0f172a; --muted: #475569; --muted-2: #64748b; --border: rgba(15, 23, 42, 0.10); --shadow: 0 18px 40px rgba(15, 23, 42, 0.08); --shadow-soft: 0 10px 22px rgba(15, 23, 42, 0.06); --accent: #2563eb; --accent-2: #0ea5e9; --success: #16a34a; --warning: #f59e0b; --radius: 16px; --radius-sm: 12px; --container: 1120px; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  background: radial-gradient(1200px 900px at 15% 10%, rgba(37, 99, 235, 0.10), transparent 55%),
+              radial-gradient(1000px 900px at 85% 20%, rgba(14, 165, 233, 0.10), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+a{ color: inherit; text-decoration: none; }
+a:hover{ text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+.container{
+  width: min(var(--container), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* Header */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  background: rgba(246, 247, 251, 0.75);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 0;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+}
+
+.mark{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 1), rgba(14, 165, 233, 1));
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  user-select: none;
+  font-size: 13px;
+}
+
+.brand-name{
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.1;
+}
+.brand-sub{
+  margin-top: 2px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 520px;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.nav a{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1;
+}
+.nav a:hover{
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.16);
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* Hero */
+.hero{
+  padding: 34px 0 18px;
+}
+.hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,1));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-card::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(900px 350px at 20% 0%, rgba(37,99,235,0.14), transparent 60%),
+              radial-gradient(700px 300px at 95% 10%, rgba(14,165,233,0.12), transparent 60%);
+  pointer-events: none;
+  opacity: 0.9;
+}
+.hero-card > *{ position: relative; }
+
+h1{
+  margin: 0;
+  font-size: clamp(24px, 3.0vw, 36px);
+  line-height: 1.12;
+  letter-spacing: -0.6px;
+}
+.lead{
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 15.5px;
+  max-width: 78ch;
+}
+
+.meta-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.meta-item{
+  grid-column: span 6;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow-soft);
+  min-height: 56px;
+}
+.meta-label{
+  color: var(--muted-2);
+  font-size: 12.5px;
+  line-height: 1.15;
+}
+.meta-value{
+  margin-top: 4px;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+/* Panels */
+.panel{
+  margin: 18px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
+}
+.panel h2{
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+.panel p{
+  margin: 10px 0 0;
+  color: var(--muted);
+  max-width: 92ch;
+}
+
+/* Tables */
+.table-wrap{
+  margin-top: 14px;
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: #fff;
+}
+th, td{
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+th{
+  background: rgba(2, 6, 23, 0.03);
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+td.num, th.num{
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+tr:last-child td{ border-bottom: 0; }
+.tfoot td{
+  font-weight: 900;
+  background: rgba(2, 6, 23, 0.02);
+}
+
+/* Stages */
+.stages{
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.stage{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.97));
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.stage-header{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 16px 14px;
+  background: rgba(2, 6, 23, 0.02);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.stage-title{
+  margin: 0;
+  font-weight: 900;
+  font-size: 15.5px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+
+.stage-summary-right{
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  text-align: right;
+  min-width: 180px;
+}
+.stage-cost{
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.stage-hours{
+  color: var(--muted-2);
+  font-size: 12.5px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-body{
+  padding: 16px;
+}
+
+.badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  background: rgba(37, 99, 235, 0.08);
+  color: #1e40af;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.money{
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+/* Lists */
+.info-list{
+  margin: 10px 0 0;
+  padding: 0 0 0 18px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.info-list li{
+  margin: 5px 0;
+}
+
+/* Summary cards */
+.cards{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.card{
+  grid-column: span 4;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 14px 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,0.95));
+  box-shadow: var(--shadow-soft);
+}
+.card-title{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+}
+.card-sub{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.hours{
+  margin-top: 10px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footer */
+footer{
+  margin: 22px 0 26px;
+  padding: 18px 0 10px;
+  color: var(--muted-2);
+  font-size: 12.5px;
+}
+.footer-inner{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.footer-brand{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.footer-brand .mark{
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 11px;
+}
+.footer-title{
+  font-weight: 900;
+  color: var(--text);
+}
+.footer-meta{
+  display: grid;
+  gap: 6px;
+  text-align: right;
+}
+
+/* Variant tabs */
+.variant-section{
+  margin-top: 14px;
+}
+.variant-title{
+  font-size: 16px;
+  font-weight: 900;
+  margin: 0 0 4px;
+  letter-spacing: -0.2px;
+}
+.variant-desc{
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0 0 14px;
+}
+
+/* Gantt */
+.gantt{ margin-top: 16px; }
+.gantt-title{
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.gantt-header{
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  padding: 0 0 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-2);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.gantt-scale{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+.gantt-row{
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+}
+.gantt-label{
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  padding-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gantt-track{
+  position: relative;
+  height: 28px;
+  background: rgba(2,6,23,0.02);
+  border-radius: 6px;
+}
+.gantt-bar{
+  position: absolute;
+  top: 3px;
+  height: 22px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 32px;
+}
+.gantt-bar-hours{
+  opacity: 0.85;
+  font-weight: 600;
+}
+.gantt-colors-0{ background: linear-gradient(90deg, #2563eb, #3b82f6); }
+.gantt-colors-1{ background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+.gantt-colors-2{ background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.gantt-colors-3{ background: linear-gradient(90deg, #16a34a, #4ade80); }
+.gantt-colors-4{ background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.gantt-colors-5{ background: linear-gradient(90deg, #ef4444, #f87171); }
+.gantt-colors-6{ background: linear-gradient(90deg, #ec4899, #f472b6); }
+.gantt-colors-7{ background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+
+/* Responsive */
+@media (max-width: 980px){
+  .meta-item{ grid-column: span 12; }
+  .card{ grid-column: span 12; }
+  table{ min-width: 640px; }
+}
+
+@media print{
+  body{ background: #fff; }
+  .site-header{ position: static; background: #fff; backdrop-filter: none; }
+  .nav{ display: none; }
+  .hero-card, .panel, .stage{ box-shadow: none; }
+}
+
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">SS</div>
+      <div>
+        <div class="brand-name">SmartSmeta</div>
+        <div class="brand-sub">{{ result.project_name }} — IT-смета</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Навигация">
+      <a href="#overview">Обзор</a>
+      <a href="#estimate">Смета</a>
+      <a href="#roles-summary">График</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+{# ── Hero ── #}
+<section class="hero">
+  <div class="hero-card">
+    <h1>{{ result.project_name }}</h1>
+    <p class="lead">{{ result.scope_summary }}</p>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Заказчик</div>
+        <div class="meta-value">{{ result.client or "—" }}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Тип проекта</div>
+        <div class="meta-value">{{ result.project_type or "IT-проект" }}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Дата сметы</div>
+        <div class="meta-value">{{ date }}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Итого часов (base)</div>
+        <div class="meta-value">{{ "{:,.0f}".format(totals.hours_base).replace(",", " ") }} ч</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Итого стоимость (base)</div>
+        <div class="meta-value">{{ "{:,.0f}".format(totals.cost_base).replace(",", " ") }} руб.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── Assumptions / Risks / Out of scope ── #}
+{% if result.assumptions or result.risks or result.out_of_scope %}
+<section id="overview" class="panel">
+  <h2>Обзор проекта</h2>
+
+  {% if result.assumptions %}
+  <h3 style="margin: 14px 0 0; font-size: 14px;">Допущения</h3>
+  <ul class="info-list">
+    {% for item in result.assumptions %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if result.risks %}
+  <h3 style="margin: 14px 0 0; font-size: 14px;">Риски</h3>
+  <ul class="info-list">
+    {% for item in result.risks %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if result.out_of_scope %}
+  <h3 style="margin: 14px 0 0; font-size: 14px;">Вне scope</h3>
+  <ul class="info-list">
+    {% for item in result.out_of_scope %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ── Estimate variants ── #}
+<section id="estimate" class="panel">
+  <h2>Смета</h2>
+
+  {% for variant in variants %}
+  <div class="variant-section">
+    <div class="variant-title">{{ variant.name }}{% if variant.timeline %} <span style="font-weight:400; font-size:13px; color:var(--muted);">({{ variant.timeline.total_weeks_min }}–{{ variant.timeline.total_weeks_max }} нед.{% if variant.timeline.note %}, {{ variant.timeline.note }}{% endif %})</span>{% endif %}</div>
+    {% if variant.description %}
+    <p class="variant-desc">{{ variant.description }}</p>
+    {% endif %}
+
+    <div class="stages">
+      {% for phase in variant.phases %}
+      <div class="stage">
+        <div class="stage-header">
+          <div>
+            <div class="stage-title">{{ phase.name }}</div>
+          </div>
+          <div class="stage-summary-right">
+            <div class="stage-cost">{{ "{:,.0f}".format(phase._cost_base).replace(",", " ") }} руб.</div>
+            <div class="stage-hours">{{ "{:,.0f}".format(phase._hours_base).replace(",", " ") }} ч (base)</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Задача</th>
+                  <th>Роль</th>
+                  <th class="num">Min</th>
+                  <th class="num">Base</th>
+                  <th class="num">Max</th>
+                  <th class="num">Ставка</th>
+                  <th class="num">Стоимость (base)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for t in phase.tasks %}
+                <tr>
+                  <td>{{ t.task }}</td>
+                  <td>{{ t.role }}</td>
+                  <td class="num">{{ t.hours_min | int }}</td>
+                  <td class="num">{{ t.hours_base | int }}</td>
+                  <td class="num">{{ t.hours_max | int }}</td>
+                  <td class="num">{{ "{:,.0f}".format(rates.get(t.role, 0)).replace(",", " ") }}</td>
+                  <td class="num money">{{ "{:,.0f}".format(t.hours_base * rates.get(t.role, 0)).replace(",", " ") }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tbody class="tfoot">
+                <tr>
+                  <td colspan="2">Итого по этапу</td>
+                  <td class="num">{{ phase._hours_min | int }}</td>
+                  <td class="num">{{ phase._hours_base | int }}</td>
+                  <td class="num">{{ phase._hours_max | int }}</td>
+                  <td></td>
+                  <td class="num money">{{ "{:,.0f}".format(phase._cost_base).replace(",", " ") }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# Variant total #}
+    <div style="margin-top:12px; padding:14px; background:rgba(37,99,235,0.04); border:1px solid rgba(37,99,235,0.15); border-radius:14px;">
+      <table style="min-width:0; background:transparent;">
+        <tr>
+          <td style="border:0; font-weight:900;">Итого «{{ variant.name }}»</td>
+          <td class="num" style="border:0;">{{ variant._hours_min | int }} ч</td>
+          <td class="num" style="border:0; font-weight:900;">{{ variant._hours_base | int }} ч</td>
+          <td class="num" style="border:0;">{{ variant._hours_max | int }} ч</td>
+          <td class="num money" style="border:0; font-weight:900; font-size:15px;">{{ "{:,.0f}".format(variant._cost_base).replace(",", " ") }} руб.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+{# ── Gantt + Role summary ── #}
+<section id="roles-summary" class="panel">
+  <h2>Примерная последовательность разработки</h2>
+  <p style="margin:6px 0 0; color:var(--muted); font-size:13.5px;">Диаграмма показывает этапы и их относительную трудоёмкость. Этапы могут частично пересекаться.</p>
+
+  {% for variant in variants %}
+  <div class="gantt">
+    <div class="gantt-title">{{ variant.name }}{% if variant.timeline %} — {{ variant.timeline.total_weeks_min }}–{{ variant.timeline.total_weeks_max }} нед.{% endif %}</div>
+    <div class="gantt-header">
+      <div>Этап</div>
+      <div class="gantt-scale">
+        <span>0 ч</span>
+        <span>{{ "{:,.0f}".format(variant._hours_base).replace(",", " ") }} ч</span>
+      </div>
+    </div>
+    {% set ns = namespace(offset=0) %}
+    {% for phase in variant.phases %}
+    {% set pct_width = (phase._hours_base / variant._hours_base * 100) if variant._hours_base > 0 else 0 %}
+    {% set pct_left = (ns.offset / variant._hours_base * 100) if variant._hours_base > 0 else 0 %}
+    <div class="gantt-row">
+      <div class="gantt-label" title="{{ phase.name }}">{{ phase.name }}</div>
+      <div class="gantt-track">
+        <div class="gantt-bar gantt-colors-{{ loop.index0 % 8 }}" style="left:{{ "%.1f"|format(pct_left) }}%; width:{{ "%.1f"|format(pct_width) }}%;">
+          <span class="gantt-bar-hours">{{ phase._hours_base | int }} ч</span>
+        </div>
+      </div>
+    </div>
+    {% set ns.offset = ns.offset + phase._hours_base * 0.7 %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <h3 style="margin:24px 0 0; font-size:15px; font-weight:800;">Сводка по ролям</h3>
+  <div class="table-wrap" style="margin-top:10px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Роль</th>
+          <th class="num">Ставка (руб/ч)</th>
+          <th class="num">Часы (base)</th>
+          <th class="num">Стоимость (base)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for role, info in role_summary.items() %}
+        <tr>
+          <td>{{ role }}</td>
+          <td class="num">{{ "{:,.0f}".format(info.rate).replace(",", " ") }}</td>
+          <td class="num">{{ "{:,.0f}".format(info.hours).replace(",", " ") }}</td>
+          <td class="num money">{{ "{:,.0f}".format(info.cost).replace(",", " ") }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tbody class="tfoot">
+        <tr>
+          <td>Итого</td>
+          <td></td>
+          <td class="num">{{ "{:,.0f}".format(totals.hours_base).replace(",", " ") }}</td>
+          <td class="num money">{{ "{:,.0f}".format(totals.cost_base).replace(",", " ") }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="mark" aria-hidden="true">SS</div>
+      <div>
+        <div class="footer-title">SmartSmeta</div>
+        <div>Генерация IT-смет</div>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <div>{{ date }}</div>
+      <div>Сгенерировано автоматически</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
